@@ -1,0 +1,32 @@
+<ng-container *ngIf="product">
+    <div class="detail">
+        <div class="detail__content">
+            <div class="detail__wrapp">
+                <img [src]="product.image" class="detail__image">
+            </div>
+            <div class="detail__info">
+                <h3 class="detail__name">{{product.name}}</h3>
+                <p class="detail__desc">{{product.description}}</p>
+                <span class="detail__price">{{this.productService.formatVND(product.price)}}</span>
+                <div class="detail__size">
+                    <p>Kích cỡ</p>
+                    <div class="detail__size-list">
+                        <button 
+                            *ngFor="let size of sizeList"
+                            [class.detail__size-selected]="size === sizeSelected"
+                            (click)="handleChooseSize(size)"
+                        >
+                            {{size}}
+                        </button>
+                    </div>
+                </div>
+                 <div class="detail__buy">
+                     <p-inputNumber [(ngModel)]="quantity" [min]="1" [max]="10" class="detail__quantity"></p-inputNumber>
+                    <button pButton [disabled]="!sizeSelected || !quantity" label="MUA NGAY" class="detail__submit" (click)="hanldeAddToCart()"></button>
+                 </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<p-toast></p-toast>
+

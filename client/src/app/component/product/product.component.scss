@@ -1,0 +1,33 @@
+.product {
+    text-align: center;
+
+    &__wrapp {
+        width: 100%;
+        margin-bottom: 20px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    &__image {
+        width: 100%;
+    }
+
+    &__name {
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-bottom: 15px;
+        cursor: pointer;
+        transition: 0.1s linear;
+
+        &:hover {
+            color: orange;
+        }
+    }
+
+    &__price {
+        font-weight: bold;
+        color: black;
+    }
+}

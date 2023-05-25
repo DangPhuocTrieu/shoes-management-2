@@ -1,0 +1,53 @@
+<div class="cart">
+    <p-table #dt class="cart__table" [value]="cartList" [rows]="5" [paginator]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-end">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input class="cart__search" pInputText type="text" placeholder="Search..." (input)="handleSearchChange($event)" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Image</th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="quantity">quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+                <th pSortableColumn="size">Size <p-sortIcon field="size"></p-sortIcon></th>
+                <th pSortableColumn="total">Total <p-sortIcon field="Total"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr> 
+                <td><img [src]="item.image" width="100" class="shadow-4 cursor-pointer" routerLink="/product/{{item._id}}" /></td>
+                <td>{{ item.name }}</td>
+                <td>{{ formatPrice(item.price) }}</td>
+                <td class="cart__quantity">{{ item.quantity }}</td>
+                <td>{{ item.size }}</td>
+                <td>{{ formatPrice(item.price * item.quantity) }}</td>
+                <td>
+                    <button pButton icon="pi pi-caret-up" class="cart__increase p-button-rounded p-button-success mr-2" (click)="handleChangequantity(item, item.quantity + 1)"></button>
+                    <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="handleDelete(item._id, item.size)"></button>
+                    <button pButton icon="pi pi-caret-down" class="cart__decrease p-button-rounded p-button-success" (click)="handleChangequantity(item, item.quantity - 1)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-end column-gap-7">
+                <span>Tổng tiền: <b>{{handleTotalPrice()}}</b></span>
+                <button pButton class="cart__payment" [disabled]="cartList.length === 0" label="Thanh toán" (click)="handlePayment()"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No products found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-toast></p-toast>
+
+

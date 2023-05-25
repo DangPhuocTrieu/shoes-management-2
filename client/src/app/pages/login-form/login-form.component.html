@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="wrapp">
+        <form class="login" [formGroup]="form" (ngSubmit)="handleSubmit(form)">
+            <h4 class="login-title">Login</h4>
+            <div class="field login-group">
+                <label>Username</label>
+                <input type="text" formControlName="username"> 
+                <div class="login-mess">
+                    <ng-container *ngIf="form.get('username')?.errors && form.get('username')?.touched">
+                        <p *ngIf="form.get('username')?.errors?.['required']">Username is required</p>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="field login-group">
+                <label>Password</label>
+                <input type="password" formControlName="password"> 
+                <div class="login-mess">
+                    <ng-container *ngIf="form.get('password')?.errors && form.get('password')?.touched">
+                        <p *ngIf="form.get('password')?.errors?.['required']">Password is required</p>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="login-submit">
+                <button pButton type="submit">Login</button>
+            </div>
+            <div class="login-regis">
+                <span>Have not account yet?</span>
+                <button pButton class="p-button-text" routerLink="/signup">Sign up</button>
+            </div>
+        </form>
+        <div class="image">
+            <img src="../../../assets/images/logo3.png">
+        </div>
+    </div>
+</div>
+
+<p-toast></p-toast>

@@ -1,0 +1,8 @@
+
+<p-card class="product" styleClass="p-card-shadow">
+    <div class="product__wrapp">
+        <img class="product__image" [src]="product.image" (click)="handleNavigate(product._id)">
+    </div>
+    <p class="product__name" (click)="handleNavigate(product._id)">{{product.name}}</p>
+    <span class="product__price">{{productService.formatVND(product.price)}}</span>
+</p-card>

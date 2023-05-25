@@ -1,0 +1,64 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2d2a30;
+    padding: 20px 50px;
+    margin-bottom: 50px;
+
+    &__logo {
+        color: rgb(0, 177, 86);
+        letter-spacing: 1px;
+    }
+
+    &__list {
+        display: flex;
+        align-items: center;
+        gap: 0 30px;
+    }
+
+    &__item {
+        font-weight: bold;
+        position: relative;
+        padding-bottom: 5px;
+
+        a {
+            font-size: 13px;
+            color: white;
+            text-transform: uppercase;
+            font-weight: 400;
+            letter-spacing: 1px;
+
+            &:hover {
+                color: rgb(0, 177, 86);
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 0 35px;
+        i {
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+        }
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+        
+        p {
+            padding-right: 8px;
+            border-right: 1px solid gray;
+            color: white;
+        }
+
+        button {
+            font-size: 14px;
+            padding-left: 8px;
+        }
+    }
+}

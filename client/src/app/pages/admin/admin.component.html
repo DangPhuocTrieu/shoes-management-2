@@ -1,0 +1,86 @@
+<div class="admin">
+    <p-toolbar styleClass="my-4">
+        <ng-template pTemplate="left">
+            <button pButton label="New" icon="pi pi-plus" (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+    
+    <p-table [value]="products" [rows]="5" [paginator]="true" [rowHover]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-end">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..." (input)="handleSearchChange($event)">
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>
+                    <img [src]="sanitizeImageUrl(product.image)" width="100" height="100" class="shadow-4">
+                </td>
+                <td>{{product.name}}</td>
+                <td class="description">{{product.description}}</td>
+                <td>{{this.productService.formatVND(product.price)}}</td>
+                <td>
+                    <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
+                    <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="handleDeleteProduct(product._id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="summary">
+            <p>Có tổng cộng <b>{{products.length}}</b> sản phẩm</p>
+        </ng-template>
+    </p-table>
+</div>
+
+<!-- ADD PRODUCT -->
+<p-dialog [(visible)]="isVisible" [style]="{width: '450px'}" header="Product Details" styleClass="p-fluid">
+    <ng-template pTemplate="content" [formGroup]="form">
+        <div *ngIf="image" class="field flex justify-content-center">
+            <img [src]="sanitizeImageUrl(image)" class="w-5rem h-5rem">
+        </div>
+        <div class="field">
+            <label>Name</label>
+            <input type="text" pInputText name="name" formControlName="name">
+            <div *ngIf="form.get('name')?.errors && form.get('name')?.touched">
+                <small class="p-error" *ngIf="form.get('name')?.errors?.['required']">Name is required</small>
+            </div>
+        </div>
+        <div class="field">
+            <label>Description</label>
+            <textarea pInputTextarea pInput name="description" formControlName="description" rows="3" style="resize: none"></textarea>
+            <div *ngIf="form.get('description')?.errors && form.get('description')?.touched">
+                <small class="p-error" *ngIf="form.get('description')?.errors?.['required']">Description is required</small>
+            </div>
+        </div>
+        <div class="field">
+            <label>Price</label>
+            <p-inputNumber name="price" formControlName="price"></p-inputNumber>
+            <div *ngIf="form.get('price')?.errors && form.get('price')?.touched">
+                <small class="p-error" *ngIf="form.get('price')?.errors?.['required']">Price is required</small>
+            </div>
+        </div>
+        <div class="field">
+            <p-fileUpload *ngIf="!form.value._id" (onSelect)="handleSelectImage($event)" mode="basic" accept="image/*" label="Upload image" chooseLabel="Upload image"></p-fileUpload>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton label="Cancel" icon="pi pi-times" (click)="hideDialog()"></button>
+        <button pButton label="Save" icon="pi pi-check" (click)="saveProduct(form)"></button>
+    </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

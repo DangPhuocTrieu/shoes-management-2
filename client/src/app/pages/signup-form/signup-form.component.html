@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="wrapp">
+        <form class="signup" [formGroup]="form" (ngSubmit)="handleSubmit(form)">
+            <h4 class="signup-title">sign up</h4>
+            <div class="field signup-group">
+                <label>Username</label>
+                <input type="text" formControlName="username"> 
+                <div class="signup-mess">
+                    <ng-container *ngIf="form.get('username')?.errors && form.get('username')?.touched">
+                        <p *ngIf="form.get('username')?.errors?.['required']">Username is required</p>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="field signup-group">
+                <label>Password</label>
+                <input type="password" formControlName="password"> 
+                <div class="signup-mess">
+                    <ng-container *ngIf="form.get('password')?.errors && form.get('password')?.touched">
+                        <p *ngIf="form.get('password')?.errors?.['required']">Password is required</p>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="field signup-group">
+                <label>Confirm password</label>
+                <input type="password" formControlName="confirmpassword"> 
+                <div class="signup-mess">
+                    <ng-container *ngIf="form.get('confirmpassword')?.errors && form.get('confirmpassword')?.touched">
+                        <p *ngIf="form.get('confirmpassword')?.errors?.['required']">Confirm password is required</p>
+                        <p *ngIf="form.errors?.['notSame']"> Confirmation password does not match</p>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="signup-submit">
+                <button pButton type="submit">Sign up</button>
+            </div>
+            <div class="signup-login">
+                <span>Do you have an account?</span>
+                <button pButton class="p-button-text" routerLink="/login">Login</button>
+            </div>
+        </form>
+        <div class="image">
+            <img src="../../../assets/images/logo3.png">
+        </div>
+    </div>
+</div>
+
+<p-toast></p-toast>
